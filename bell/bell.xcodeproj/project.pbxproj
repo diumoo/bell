@@ -7,11 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		171F4ACB17DE1CDE00AD52A9 /* bellPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */; };
 		17394EFD17DE1C6400650635 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17394EFC17DE1C6400650635 /* CoreFoundation.framework */; };
 		17394F0317DE1C6400650635 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17394F0117DE1C6400650635 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		171F4AC917DE1CDE00AD52A9 /* bellPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bellPlayer.h; sourceTree = "<group>"; };
+		171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bellPlayer.m; sourceTree = "<group>"; };
 		17394EF917DE1C6400650635 /* bell.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bell.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		17394EFC17DE1C6400650635 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		17394F0017DE1C6400650635 /* bell-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bell-Info.plist"; sourceTree = "<group>"; };
@@ -60,6 +63,8 @@
 			isa = PBXGroup;
 			children = (
 				17394EFF17DE1C6400650635 /* Supporting Files */,
+				171F4AC917DE1CDE00AD52A9 /* bellPlayer.h */,
+				171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */,
 			);
 			path = bell;
 			sourceTree = "<group>";
@@ -136,6 +141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				171F4ACB17DE1CDE00AD52A9 /* bellPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +274,7 @@
 				17394F0917DE1C6400650635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
