@@ -8,6 +8,12 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-@interface bellPlayer : AVAudioPlayer
+@interface bellPlayer : AVPlayer
+
+@property (strong) AVPlayer *playerCore;
+@property (atomic, weak) AVPlayerItem *currentItem;
+
+// Create a shared player core for all
++(id) sharedPlayer;
 
 @end
