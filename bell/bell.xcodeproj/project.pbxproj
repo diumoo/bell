@@ -7,15 +7,95 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		171F4ACB17DE1CDE00AD52A9 /* bellPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */; };
-		17394EFD17DE1C6400650635 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17394EFC17DE1C6400650635 /* CoreFoundation.framework */; };
-		17394F0317DE1C6400650635 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17394F0117DE1C6400650635 /* InfoPlist.strings */; };
+		171289D517E60544006896C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289D417E60544006896C8 /* Foundation.framework */; };
+		171289D717E60544006896C8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289D617E60544006896C8 /* CoreGraphics.framework */; };
+		171289D917E60544006896C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289D817E60544006896C8 /* UIKit.framework */; };
+		171289DF17E60544006896C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 171289DD17E60544006896C8 /* InfoPlist.strings */; };
+		171289E117E60544006896C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 171289E017E60544006896C8 /* main.m */; };
+		171289E517E60544006896C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 171289E417E60544006896C8 /* AppDelegate.m */; };
+		171289E817E60544006896C8 /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171289E617E60544006896C8 /* Main_iPhone.storyboard */; };
+		171289EB17E60544006896C8 /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 171289E917E60544006896C8 /* Main_iPad.storyboard */; };
+		171289EE17E60544006896C8 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171289ED17E60544006896C8 /* MasterViewController.m */; };
+		171289F117E60544006896C8 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 171289F017E60544006896C8 /* DetailViewController.m */; };
+		171289F317E60544006896C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 171289F217E60544006896C8 /* Images.xcassets */; };
+		171289FA17E60544006896C8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289F917E60544006896C8 /* XCTest.framework */; };
+		171289FB17E60544006896C8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289D417E60544006896C8 /* Foundation.framework */; };
+		171289FC17E60544006896C8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289D817E60544006896C8 /* UIKit.framework */; };
+		17128A0417E60544006896C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17128A0217E60544006896C8 /* InfoPlist.strings */; };
+		17128A0617E60544006896C8 /* BellPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17128A0517E60544006896C8 /* BellPlayerTests.m */; };
+		17128A1317E60555006896C8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17128A1217E60555006896C8 /* Cocoa.framework */; };
+		17128A1D17E60555006896C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17128A1B17E60555006896C8 /* InfoPlist.strings */; };
+		17128A1F17E60555006896C8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 17128A1E17E60555006896C8 /* main.m */; };
+		17128A2317E60555006896C8 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 17128A2117E60555006896C8 /* Credits.rtf */; };
+		17128A2617E60555006896C8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 17128A2517E60555006896C8 /* AppDelegate.m */; };
+		17128A2917E60555006896C8 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 17128A2717E60555006896C8 /* MainMenu.xib */; };
+		17128A2B17E60555006896C8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17128A2A17E60555006896C8 /* Images.xcassets */; };
+		17128A3117E60556006896C8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 171289F917E60544006896C8 /* XCTest.framework */; };
+		17128A3217E60556006896C8 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17128A1217E60555006896C8 /* Cocoa.framework */; };
+		17128A3A17E60556006896C8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17128A3817E60556006896C8 /* InfoPlist.strings */; };
+		17128A3C17E60556006896C8 /* BellPlayer_OSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17128A3B17E60556006896C8 /* BellPlayer_OSXTests.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		171289FD17E60544006896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17394EF117DE1C6400650635 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 171289D217E60544006896C8;
+			remoteInfo = BellPlayer;
+		};
+		17128A3317E60556006896C8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17394EF117DE1C6400650635 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17128A1017E60555006896C8;
+			remoteInfo = BellPlayer_OSX;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		171289D317E60544006896C8 /* BellPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BellPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		171289D417E60544006896C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		171289D617E60544006896C8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		171289D817E60544006896C8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		171289DC17E60544006896C8 /* BellPlayer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BellPlayer-Info.plist"; sourceTree = "<group>"; };
+		171289DE17E60544006896C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		171289E017E60544006896C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		171289E217E60544006896C8 /* BellPlayer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BellPlayer-Prefix.pch"; sourceTree = "<group>"; };
+		171289E317E60544006896C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		171289E417E60544006896C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		171289E717E60544006896C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		171289EA17E60544006896C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		171289EC17E60544006896C8 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
+		171289ED17E60544006896C8 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
+		171289EF17E60544006896C8 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		171289F017E60544006896C8 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		171289F217E60544006896C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		171289F817E60544006896C8 /* BellPlayerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BellPlayerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		171289F917E60544006896C8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		17128A0117E60544006896C8 /* BellPlayerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BellPlayerTests-Info.plist"; sourceTree = "<group>"; };
+		17128A0317E60544006896C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		17128A0517E60544006896C8 /* BellPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BellPlayerTests.m; sourceTree = "<group>"; };
+		17128A1117E60555006896C8 /* BellPlayer_OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BellPlayer_OSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		17128A1217E60555006896C8 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		17128A1517E60555006896C8 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		17128A1617E60555006896C8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		17128A1717E60555006896C8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		17128A1A17E60555006896C8 /* BellPlayer_OSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BellPlayer_OSX-Info.plist"; sourceTree = "<group>"; };
+		17128A1C17E60555006896C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		17128A1E17E60555006896C8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		17128A2017E60555006896C8 /* BellPlayer_OSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BellPlayer_OSX-Prefix.pch"; sourceTree = "<group>"; };
+		17128A2217E60555006896C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		17128A2417E60555006896C8 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		17128A2517E60555006896C8 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		17128A2817E60555006896C8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		17128A2A17E60555006896C8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		17128A3017E60555006896C8 /* BellPlayer_OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BellPlayer_OSXTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		17128A3717E60556006896C8 /* BellPlayer_OSXTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BellPlayer_OSXTests-Info.plist"; sourceTree = "<group>"; };
+		17128A3917E60556006896C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		17128A3B17E60556006896C8 /* BellPlayer_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BellPlayer_OSXTests.m; sourceTree = "<group>"; };
 		171F4AC917DE1CDE00AD52A9 /* bellPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bellPlayer.h; sourceTree = "<group>"; };
 		171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = bellPlayer.m; sourceTree = "<group>"; };
-		17394EF917DE1C6400650635 /* bell.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bell.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		17394EFC17DE1C6400650635 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		17394F0017DE1C6400650635 /* bell-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "bell-Info.plist"; sourceTree = "<group>"; };
 		17394F0217DE1C6400650635 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -23,30 +103,199 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		17394EF617DE1C6400650635 /* Frameworks */ = {
+		171289D017E60544006896C8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17394EFD17DE1C6400650635 /* CoreFoundation.framework in Frameworks */,
+				171289D717E60544006896C8 /* CoreGraphics.framework in Frameworks */,
+				171289D917E60544006896C8 /* UIKit.framework in Frameworks */,
+				171289D517E60544006896C8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		171289F517E60544006896C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				171289FA17E60544006896C8 /* XCTest.framework in Frameworks */,
+				171289FC17E60544006896C8 /* UIKit.framework in Frameworks */,
+				171289FB17E60544006896C8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A0E17E60555006896C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A1317E60555006896C8 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A2D17E60555006896C8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A3217E60556006896C8 /* Cocoa.framework in Frameworks */,
+				17128A3117E60556006896C8 /* XCTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		171289DA17E60544006896C8 /* BellPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				171289E317E60544006896C8 /* AppDelegate.h */,
+				171289E417E60544006896C8 /* AppDelegate.m */,
+				171289E617E60544006896C8 /* Main_iPhone.storyboard */,
+				171289E917E60544006896C8 /* Main_iPad.storyboard */,
+				171289EC17E60544006896C8 /* MasterViewController.h */,
+				171289ED17E60544006896C8 /* MasterViewController.m */,
+				171289EF17E60544006896C8 /* DetailViewController.h */,
+				171289F017E60544006896C8 /* DetailViewController.m */,
+				171289F217E60544006896C8 /* Images.xcassets */,
+				171289DB17E60544006896C8 /* Supporting Files */,
+			);
+			path = BellPlayer;
+			sourceTree = "<group>";
+		};
+		171289DB17E60544006896C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				171289DC17E60544006896C8 /* BellPlayer-Info.plist */,
+				171289DD17E60544006896C8 /* InfoPlist.strings */,
+				171289E017E60544006896C8 /* main.m */,
+				171289E217E60544006896C8 /* BellPlayer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		171289FF17E60544006896C8 /* BellPlayerTests */ = {
+			isa = PBXGroup;
+			children = (
+				17128A0517E60544006896C8 /* BellPlayerTests.m */,
+				17128A0017E60544006896C8 /* Supporting Files */,
+			);
+			path = BellPlayerTests;
+			sourceTree = "<group>";
+		};
+		17128A0017E60544006896C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17128A0117E60544006896C8 /* BellPlayerTests-Info.plist */,
+				17128A0217E60544006896C8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17128A1417E60555006896C8 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17128A1517E60555006896C8 /* AppKit.framework */,
+				17128A1617E60555006896C8 /* CoreData.framework */,
+				17128A1717E60555006896C8 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		17128A1817E60555006896C8 /* BellPlayer_OSX */ = {
+			isa = PBXGroup;
+			children = (
+				17128A2417E60555006896C8 /* AppDelegate.h */,
+				17128A2517E60555006896C8 /* AppDelegate.m */,
+				17128A2717E60555006896C8 /* MainMenu.xib */,
+				17128A2A17E60555006896C8 /* Images.xcassets */,
+				17128A1917E60555006896C8 /* Supporting Files */,
+			);
+			path = BellPlayer_OSX;
+			sourceTree = "<group>";
+		};
+		17128A1917E60555006896C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17128A1A17E60555006896C8 /* BellPlayer_OSX-Info.plist */,
+				17128A1B17E60555006896C8 /* InfoPlist.strings */,
+				17128A1E17E60555006896C8 /* main.m */,
+				17128A2017E60555006896C8 /* BellPlayer_OSX-Prefix.pch */,
+				17128A2117E60555006896C8 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17128A3517E60556006896C8 /* BellPlayer_OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				17128A3B17E60556006896C8 /* BellPlayer_OSXTests.m */,
+				17128A3617E60556006896C8 /* Supporting Files */,
+			);
+			path = BellPlayer_OSXTests;
+			sourceTree = "<group>";
+		};
+		17128A3617E60556006896C8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17128A3717E60556006896C8 /* BellPlayer_OSXTests-Info.plist */,
+				17128A3817E60556006896C8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17128A4317E60582006896C8 /* Core_Player */ = {
+			isa = PBXGroup;
+			children = (
+				17128A4617E605AA006896C8 /* Controller */,
+				17128A4517E605A2006896C8 /* PlayerItem */,
+				17128A4417E60598006896C8 /* Core */,
+			);
+			name = Core_Player;
+			path = bell;
+			sourceTree = "<group>";
+		};
+		17128A4417E60598006896C8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				171F4AC917DE1CDE00AD52A9 /* bellPlayer.h */,
+				171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		17128A4517E605A2006896C8 /* PlayerItem */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PlayerItem;
+			sourceTree = "<group>";
+		};
+		17128A4617E605AA006896C8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
 		17394EF017DE1C6400650635 = {
 			isa = PBXGroup;
 			children = (
 				17394EFE17DE1C6400650635 /* bell */,
+				171289DA17E60544006896C8 /* BellPlayer */,
+				171289FF17E60544006896C8 /* BellPlayerTests */,
+				17128A1817E60555006896C8 /* BellPlayer_OSX */,
+				17128A3517E60556006896C8 /* BellPlayer_OSXTests */,
 				17394EFB17DE1C6400650635 /* Frameworks */,
 				17394EFA17DE1C6400650635 /* Products */,
+				17128A4317E60582006896C8 /* Core_Player */,
 			);
 			sourceTree = "<group>";
 		};
 		17394EFA17DE1C6400650635 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				17394EF917DE1C6400650635 /* bell.bundle */,
+				171289D317E60544006896C8 /* BellPlayer.app */,
+				171289F817E60544006896C8 /* BellPlayerTests.xctest */,
+				17128A1117E60555006896C8 /* BellPlayer_OSX.app */,
+				17128A3017E60555006896C8 /* BellPlayer_OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +304,12 @@
 			isa = PBXGroup;
 			children = (
 				17394EFC17DE1C6400650635 /* CoreFoundation.framework */,
+				171289D417E60544006896C8 /* Foundation.framework */,
+				171289D617E60544006896C8 /* CoreGraphics.framework */,
+				171289D817E60544006896C8 /* UIKit.framework */,
+				171289F917E60544006896C8 /* XCTest.framework */,
+				17128A1217E60555006896C8 /* Cocoa.framework */,
+				17128A1417E60555006896C8 /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -63,8 +318,6 @@
 			isa = PBXGroup;
 			children = (
 				17394EFF17DE1C6400650635 /* Supporting Files */,
-				171F4AC917DE1CDE00AD52A9 /* bellPlayer.h */,
-				171F4ACA17DE1CDE00AD52A9 /* bellPlayer.m */,
 			);
 			path = bell;
 			sourceTree = "<group>";
@@ -82,22 +335,75 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		17394EF817DE1C6400650635 /* bell */ = {
+		171289D217E60544006896C8 /* BellPlayer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 17394F0717DE1C6400650635 /* Build configuration list for PBXNativeTarget "bell" */;
+			buildConfigurationList = 17128A0717E60544006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer" */;
 			buildPhases = (
-				17394EF517DE1C6400650635 /* Sources */,
-				17394EF617DE1C6400650635 /* Frameworks */,
-				17394EF717DE1C6400650635 /* Resources */,
+				171289CF17E60544006896C8 /* Sources */,
+				171289D017E60544006896C8 /* Frameworks */,
+				171289D117E60544006896C8 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = bell;
-			productName = bell;
-			productReference = 17394EF917DE1C6400650635 /* bell.bundle */;
-			productType = "com.apple.product-type.bundle";
+			name = BellPlayer;
+			productName = BellPlayer;
+			productReference = 171289D317E60544006896C8 /* BellPlayer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		171289F717E60544006896C8 /* BellPlayerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17128A0A17E60544006896C8 /* Build configuration list for PBXNativeTarget "BellPlayerTests" */;
+			buildPhases = (
+				171289F417E60544006896C8 /* Sources */,
+				171289F517E60544006896C8 /* Frameworks */,
+				171289F617E60544006896C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				171289FE17E60544006896C8 /* PBXTargetDependency */,
+			);
+			name = BellPlayerTests;
+			productName = BellPlayerTests;
+			productReference = 171289F817E60544006896C8 /* BellPlayerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		17128A1017E60555006896C8 /* BellPlayer_OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17128A3D17E60556006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer_OSX" */;
+			buildPhases = (
+				17128A0D17E60555006896C8 /* Sources */,
+				17128A0E17E60555006896C8 /* Frameworks */,
+				17128A0F17E60555006896C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BellPlayer_OSX;
+			productName = BellPlayer_OSX;
+			productReference = 17128A1117E60555006896C8 /* BellPlayer_OSX.app */;
+			productType = "com.apple.product-type.application";
+		};
+		17128A2F17E60555006896C8 /* BellPlayer_OSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17128A4017E60556006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer_OSXTests" */;
+			buildPhases = (
+				17128A2C17E60555006896C8 /* Sources */,
+				17128A2D17E60555006896C8 /* Frameworks */,
+				17128A2E17E60555006896C8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				17128A3417E60556006896C8 /* PBXTargetDependency */,
+			);
+			name = BellPlayer_OSXTests;
+			productName = BellPlayer_OSXTests;
+			productReference = 17128A3017E60555006896C8 /* BellPlayer_OSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -107,6 +413,14 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = xiuxiude;
+				TargetAttributes = {
+					171289F717E60544006896C8 = {
+						TestTargetID = 171289D217E60544006896C8;
+					};
+					17128A2F17E60555006896C8 = {
+						TestTargetID = 171289D217E60544006896C8;
+					};
+				};
 			};
 			buildConfigurationList = 17394EF417DE1C6400650635 /* Build configuration list for PBXProject "bell" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -114,40 +428,179 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 17394EF017DE1C6400650635;
 			productRefGroup = 17394EFA17DE1C6400650635 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				17394EF817DE1C6400650635 /* bell */,
+				171289D217E60544006896C8 /* BellPlayer */,
+				171289F717E60544006896C8 /* BellPlayerTests */,
+				17128A1017E60555006896C8 /* BellPlayer_OSX */,
+				17128A2F17E60555006896C8 /* BellPlayer_OSXTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		17394EF717DE1C6400650635 /* Resources */ = {
+		171289D117E60544006896C8 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17394F0317DE1C6400650635 /* InfoPlist.strings in Resources */,
+				171289EB17E60544006896C8 /* Main_iPad.storyboard in Resources */,
+				171289F317E60544006896C8 /* Images.xcassets in Resources */,
+				171289E817E60544006896C8 /* Main_iPhone.storyboard in Resources */,
+				171289DF17E60544006896C8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		171289F617E60544006896C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A0417E60544006896C8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A0F17E60555006896C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A1D17E60555006896C8 /* InfoPlist.strings in Resources */,
+				17128A2B17E60555006896C8 /* Images.xcassets in Resources */,
+				17128A2317E60555006896C8 /* Credits.rtf in Resources */,
+				17128A2917E60555006896C8 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A2E17E60555006896C8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A3A17E60556006896C8 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		17394EF517DE1C6400650635 /* Sources */ = {
+		171289CF17E60544006896C8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				171F4ACB17DE1CDE00AD52A9 /* bellPlayer.m in Sources */,
+				171289E517E60544006896C8 /* AppDelegate.m in Sources */,
+				171289EE17E60544006896C8 /* MasterViewController.m in Sources */,
+				171289E117E60544006896C8 /* main.m in Sources */,
+				171289F117E60544006896C8 /* DetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		171289F417E60544006896C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A0617E60544006896C8 /* BellPlayerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A0D17E60555006896C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A2617E60555006896C8 /* AppDelegate.m in Sources */,
+				17128A1F17E60555006896C8 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17128A2C17E60555006896C8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17128A3C17E60556006896C8 /* BellPlayer_OSXTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		171289FE17E60544006896C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 171289D217E60544006896C8 /* BellPlayer */;
+			targetProxy = 171289FD17E60544006896C8 /* PBXContainerItemProxy */;
+		};
+		17128A3417E60556006896C8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17128A1017E60555006896C8 /* BellPlayer_OSX */;
+			targetProxy = 17128A3317E60556006896C8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		171289DD17E60544006896C8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				171289DE17E60544006896C8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		171289E617E60544006896C8 /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				171289E717E60544006896C8 /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		171289E917E60544006896C8 /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				171289EA17E60544006896C8 /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		17128A0217E60544006896C8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17128A0317E60544006896C8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		17128A1B17E60555006896C8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17128A1C17E60555006896C8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		17128A2117E60555006896C8 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17128A2217E60555006896C8 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		17128A2717E60555006896C8 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17128A2817E60555006896C8 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		17128A3817E60556006896C8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17128A3917E60556006896C8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		17394F0117DE1C6400650635 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -159,6 +612,172 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		17128A0817E60544006896C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer/BellPlayer-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BellPlayer/BellPlayer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		17128A0917E60544006896C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer/BellPlayer-Prefix.pch";
+				INFOPLIST_FILE = "BellPlayer/BellPlayer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		17128A0B17E60544006896C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BellPlayer.app/BellPlayer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer/BellPlayer-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BellPlayerTests/BellPlayerTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		17128A0C17E60544006896C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BellPlayer.app/BellPlayer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer/BellPlayer-Prefix.pch";
+				INFOPLIST_FILE = "BellPlayerTests/BellPlayerTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		17128A3E17E60556006896C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer_OSX/BellPlayer_OSX-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BellPlayer_OSX/BellPlayer_OSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		17128A3F17E60556006896C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer_OSX/BellPlayer_OSX-Prefix.pch";
+				INFOPLIST_FILE = "BellPlayer_OSX/BellPlayer_OSX-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		17128A4117E60556006896C8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BellPlayer.app/BellPlayer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer_OSX/BellPlayer_OSX-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "BellPlayer_OSXTests/BellPlayer_OSXTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		17128A4217E60556006896C8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/BellPlayer.app/BellPlayer";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "BellPlayer_OSX/BellPlayer_OSX-Prefix.pch";
+				INFOPLIST_FILE = "BellPlayer_OSXTests/BellPlayer_OSXTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 		17394F0517DE1C6400650635 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -229,49 +848,46 @@
 			};
 			name = Release;
 		};
-		17394F0817DE1C6400650635 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "bell/bell-Prefix.pch";
-				INFOPLIST_FILE = "bell/bell-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		17394F0917DE1C6400650635 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "bell/bell-Prefix.pch";
-				INFOPLIST_FILE = "bell/bell-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		17128A0717E60544006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17128A0817E60544006896C8 /* Debug */,
+				17128A0917E60544006896C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		17128A0A17E60544006896C8 /* Build configuration list for PBXNativeTarget "BellPlayerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17128A0B17E60544006896C8 /* Debug */,
+				17128A0C17E60544006896C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		17128A3D17E60556006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer_OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17128A3E17E60556006896C8 /* Debug */,
+				17128A3F17E60556006896C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		17128A4017E60556006896C8 /* Build configuration list for PBXNativeTarget "BellPlayer_OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17128A4117E60556006896C8 /* Debug */,
+				17128A4217E60556006896C8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		17394EF417DE1C6400650635 /* Build configuration list for PBXProject "bell" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17394F0517DE1C6400650635 /* Debug */,
 				17394F0617DE1C6400650635 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		17394F0717DE1C6400650635 /* Build configuration list for PBXNativeTarget "bell" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				17394F0817DE1C6400650635 /* Debug */,
-				17394F0917DE1C6400650635 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
