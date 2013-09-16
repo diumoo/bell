@@ -23,7 +23,6 @@
 		52A33CFD17E73960007D082F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A33CFC17E73960007D082F /* Default@2x.png */; };
 		52A33CFF17E73960007D082F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52A33CFE17E73960007D082F /* Default-568h@2x.png */; };
 		52A33D0817E73974007D082F /* BellPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A33D0517E73974007D082F /* BellPlayer.m */; };
-		52A33D0917E73974007D082F /* BellPlayerItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A33D0717E73974007D082F /* BellPlayerItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +54,6 @@
 		52A33CFE17E73960007D082F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		52A33D0417E73974007D082F /* BellPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BellPlayer.h; sourceTree = "<group>"; };
 		52A33D0517E73974007D082F /* BellPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BellPlayer.m; sourceTree = "<group>"; };
-		52A33D0617E73974007D082F /* BellPlayerItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BellPlayerItem.h; sourceTree = "<group>"; };
-		52A33D0717E73974007D082F /* BellPlayerItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BellPlayerItem.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,8 +172,6 @@
 			children = (
 				52A33D0417E73974007D082F /* BellPlayer.h */,
 				52A33D0517E73974007D082F /* BellPlayer.m */,
-				52A33D0617E73974007D082F /* BellPlayerItem.h */,
-				52A33D0717E73974007D082F /* BellPlayerItem.m */,
 			);
 			name = src;
 			path = ../src;
@@ -279,7 +274,6 @@
 				52A33CD317E73906007D082F /* main.m in Sources */,
 				52A33CDA17E73906007D082F /* BellAppDelegate.m in Sources */,
 				52A33D0817E73974007D082F /* BellPlayer.m in Sources */,
-				52A33D0917E73974007D082F /* BellPlayerItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,10 +10,13 @@
 
 @interface BellPlayer : AVPlayer
 
-@property (strong) AVPlayer *playerCore;
-@property (atomic, weak) AVPlayerItem *currentItem;
+@property(nonatomic) NSTimeInterval fadeTimeInterval;
+@property(nonatomic) float volume;
 
-// Create a shared player core for all
-+(id) sharedPlayer;
++ (id)sharedPlayer;
+
+- (void)pause;
+- (void)play;
+- (void)playURL:(NSURL *) url;
 
 @end

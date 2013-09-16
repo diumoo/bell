@@ -8,27 +8,164 @@
 
 #import "bellPlayer.h"
 
+const NSTimeInterval timerInterval=0.1;
 static BellPlayer *sharedPlayer;
 
-@implementation BellPlayer
-@synthesize playerCore=_playerCore;
+enum BellFadingState {
+  BellNoFadingState = 0,
+  BellNewPlayItemFadingOutState = 1,
+  BellPauseFadingOutState = 2,
+  BellResumeFadingInState = 3,
+  };
 
-
-+(id) sharedPlayer
+@interface BellPlayer()
 {
-    if (sharedPlayer == nil) {
-        sharedPlayer = [[BellPlayer alloc] init];
-    }
-    return sharedPlayer;
+  NSTimer *timer;
+  AVPlayerItem *waitingItem;
+  float volume;
+  int fadeState;
 }
 
--(id) init
+@end
+
+@implementation BellPlayer
+
+@synthesize fadeTimeInterval = fadeTimeInterval;
+
++ (id)sharedPlayer
 {
-    self = [super init];
-    if (self) {
-        _playerCore = [[AVPlayer alloc] init];
+  if (sharedPlayer == nil) {
+    sharedPlayer = [[BellPlayer alloc] init];
+  }
+  return sharedPlayer;
+}
+
+- (id)init
+{
+  self = [super init];
+  if (self) {
+    fadeState = BellNoFadingState;
+    fadeTimeInterval = 1.0;
+    volume = 1;
+  }
+  return self;
+}
+
+- (void)pause
+{
+  if (self.rate == 0.0) return;
+  if (OSAtomicCompareAndSwapInt(BellNoFadingState,
+                                 BellPauseFadingOutState,
+                                 &fadeState)) {
+      [self fadingFinishedWithState:fadeState];
+  }
+}
+
+- (void)play
+{
+  if (self.rate > 0.1) return;
+  if (OSAtomicCompareAndSwapInt(BellNoFadingState,
+                                BellResumeFadingInState,
+                                &fadeState)) {
+    [super play];
+    [self triggerFading];
+  }
+}
+
+- (void)playURL:(NSURL *)url
+{
+  waitingItem = [AVPlayerItem playerItemWithURL:url];
+  if (self.rate > 0.0) {
+    fadeState = BellNewPlayItemFadingOutState;
+    [self triggerFading];
+  }
+  else {
+    [super replaceCurrentItemWithPlayerItem: waitingItem];
+    [super play];
+  }
+}
+
+- (void)invalidateTimer
+{
+  if (timer) {
+    CFRunLoopRemoveTimer(CFRunLoopGetMain(),
+                         (__bridge CFRunLoopTimerRef)timer,
+                         kCFRunLoopCommonModes);
+    [timer invalidate];
+    timer = nil;
+  }
+}
+
+- (void)triggerFading
+{
+  [self invalidateTimer];
+  
+  NSDictionary *info = @{@"state": @(fadeState)};
+  
+  timer = [NSTimer timerWithTimeInterval:timerInterval
+                                  target:self
+                                selector:@selector(timerPulse:)
+                                userInfo:info
+                                 repeats:YES];
+  CFRunLoopAddTimer(CFRunLoopGetMain(),
+                    (__bridge CFRunLoopTimerRef)timer,
+                    kCFRunLoopCommonModes);
+  [timer fire];
+}
+
+- (float)volume
+{
+  return volume;
+}
+
+- (void)setVolume:(float)v
+{
+  volume = v;
+  if (timer == nil) [super setVolume:v];
+}
+
+- (void)timerPulse:(NSTimer *)sender
+{
+  NSDictionary *info = sender.userInfo;
+  int state = [[info objectForKey:@"state"] intValue];
+  float step = volume * timerInterval / fadeTimeInterval;
+  if (state != BellResumeFadingInState) {
+    if (fabsf(super.volume - volume) <= step) {
+      
+      super.volume = volume;
+      [self fadingFinishedWithState:state];
     }
-    return self;
+    else {
+      super.volume += step;
+    }
+  }
+  else {
+    if (super.volume < step) {
+      super.volume = 0.0;
+      [self fadingFinishedWithState:state];
+    }
+    else {
+      super.volume -= step;
+    }
+  }
+}
+
+- (void)fadingFinishedWithState:(int) state
+{
+  [self invalidateTimer];
+  switch (state) {
+    case BellPauseFadingOutState:
+      [super pause];
+      break;
+    case BellNewPlayItemFadingOutState:
+      [super pause];
+      [super replaceCurrentItemWithPlayerItem:waitingItem];
+      [super play];
+      break;
+    default:
+      OSAtomicCompareAndSwapInt(state, BellNoFadingState, &fadeState);
+      break;
+  }
 }
 
 @end
