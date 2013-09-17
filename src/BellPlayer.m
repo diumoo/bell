@@ -30,9 +30,9 @@ enum BellFadingState {
 
 @implementation BellPlayer
 
-@synthesize fadeTimeInterval = fadeTimeInterval;
+@synthesize fadingTimeDuration = fadingTimeDuration;
 
-+ (id)sharedPlayer
++ (instancetype)sharedPlayer
 {
   if (sharedPlayer == nil) {
     sharedPlayer = [[BellPlayer alloc] init];
@@ -45,7 +45,7 @@ enum BellFadingState {
   self = [super init];
   if (self) {
     fadeState = BellNoFadingState;
-    fadeTimeInterval = 1.0;
+    fadingTimeDuration = 1.0;
     volume = 1;
   }
   return self;
@@ -57,7 +57,7 @@ enum BellFadingState {
   if (OSAtomicCompareAndSwapInt(BellNoFadingState,
                                  BellPauseFadingOutState,
                                  &fadeState)) {
-      [self fadingFinishedWithState:fadeState];
+    [self triggerFading];
   }
 }
 
@@ -81,6 +81,7 @@ enum BellFadingState {
   }
   else {
     [super replaceCurrentItemWithPlayerItem: waitingItem];
+    [super setVolume:volume];
     [super play];
   }
 }
@@ -100,17 +101,25 @@ enum BellFadingState {
 {
   [self invalidateTimer];
   
-  NSDictionary *info = @{@"state": @(fadeState)};
-  
-  timer = [NSTimer timerWithTimeInterval:timerInterval
-                                  target:self
-                                selector:@selector(timerPulse:)
-                                userInfo:info
-                                 repeats:YES];
-  CFRunLoopAddTimer(CFRunLoopGetMain(),
-                    (__bridge CFRunLoopTimerRef)timer,
-                    kCFRunLoopCommonModes);
-  [timer fire];
+  if (fadingTimeDuration >= 0.1) {
+    NSDictionary *info = @{@"state": @(fadeState)};
+    timer = [NSTimer timerWithTimeInterval:timerInterval
+                                    target:self
+                                  selector:@selector(timerPulse:)
+                                  userInfo:info
+                                   repeats:YES];
+    CFRunLoopAddTimer(CFRunLoopGetMain(),
+                      (__bridge CFRunLoopTimerRef)timer,
+                      kCFRunLoopCommonModes);
+    [timer fire];
+  }
+  else {
+    if (fadeState != BellResumeFadingInState)
+      super.volume = 0.0;
+    else
+      super.volume = volume;
+    [self fadingFinishedWithState:fadeState];
+  }
 }
 
 - (float)volume
@@ -128,8 +137,17 @@ enum BellFadingState {
 {
   NSDictionary *info = sender.userInfo;
   int state = [[info objectForKey:@"state"] intValue];
-  float step = volume * timerInterval / fadeTimeInterval;
+  float step = volume * timerInterval / fadingTimeDuration;
   if (state != BellResumeFadingInState) {
+    if (super.volume < step) {
+      super.volume = 0.0;
+      [self fadingFinishedWithState:state];
+    }
+    else {
+      super.volume -= step;
+    }
+  }
+  else {
     if (fabsf(super.volume - volume) <= step) {
       
       super.volume = volume;
@@ -137,15 +155,6 @@ enum BellFadingState {
     }
     else {
       super.volume += step;
-    }
-  }
-  else {
-    if (super.volume < step) {
-      super.volume = 0.0;
-      [self fadingFinishedWithState:state];
-    }
-    else {
-      super.volume -= step;
     }
   }
 }
@@ -160,12 +169,11 @@ enum BellFadingState {
     case BellNewPlayItemFadingOutState:
       [super pause];
       [super replaceCurrentItemWithPlayerItem:waitingItem];
+      [super setVolume:volume];
       [super play];
       break;
-    default:
-      OSAtomicCompareAndSwapInt(state, BellNoFadingState, &fadeState);
-      break;
   }
+  OSAtomicCompareAndSwapInt(state, BellNoFadingState, &fadeState);
 }
 
 @end

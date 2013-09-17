@@ -8,8 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class BellPlayer;
+
 @interface BellAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSTextField *audioUrlField;
+@property (nonatomic) NSNumber *fadingTimeDuration;
+
+- (IBAction)buttonAction:(id)sender;
 
 @end
