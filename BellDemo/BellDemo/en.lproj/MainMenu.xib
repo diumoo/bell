@@ -1308,7 +1308,7 @@
 				<nil key="NSViewClass"/>
 				<nil key="NSUserInterfaceItemIdentifier"/>
 				<object class="NSView" key="NSWindowView" id="439893737">
-					<reference key="NSNextResponder"/>
+					<nil key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<array class="NSMutableArray" key="NSSubviews">
 						<object class="NSButton" id="23427073">
@@ -1316,7 +1316,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{14, 13}, {66, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="635404023"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSTag">1</int>
@@ -1346,7 +1345,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{80, 13}, {78, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="677283984"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<int key="NSTag">2</int>
@@ -1372,7 +1370,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{20, 53}, {351, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="738204661"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1410,7 +1407,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{378, 47}, {88, 32}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="23427073"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1435,7 +1431,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{181, 22}, {50, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="1016256307"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1473,7 +1468,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{272, 14}, {19, 27}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="546430185"/>
 							<string key="NSReuseIdentifierKey">_NS:1099</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1493,7 +1487,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{233, 17}, {40, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="316001959"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1560,7 +1553,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{301, 21}, {102, 17}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="222466216"/>
 							<string key="NSReuseIdentifierKey">_NS:1535</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1581,8 +1573,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{444, 13}, {19, 27}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:1099</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSStepperCell" key="NSCell" id="958172404">
@@ -1601,7 +1591,6 @@
 							<int key="NSvFlags">268</int>
 							<string key="NSFrame">{{405, 16}, {40, 22}}</string>
 							<reference key="NSSuperview" ref="439893737"/>
-							<reference key="NSWindow"/>
 							<reference key="NSNextKeyView" ref="557964817"/>
 							<string key="NSReuseIdentifierKey">_NS:9</string>
 							<bool key="NSEnabled">YES</bool>
@@ -1656,8 +1645,6 @@
 						</object>
 					</array>
 					<string key="NSFrameSize">{480, 88}</string>
-					<reference key="NSSuperview"/>
-					<reference key="NSWindow"/>
 					<reference key="NSNextKeyView" ref="1054555795"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1440, 900}}</string>
@@ -2422,15 +2409,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.fadingTimeDuration</string>
+						<string key="label">value: self.fadingDuration</string>
 						<reference key="source" ref="557964817"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="557964817"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: self.fadingTimeDuration</string>
+							<string key="NSLabel">value: self.fadingDuration</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.fadingTimeDuration</string>
+							<string key="NSKeyPath">self.fadingDuration</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
@@ -2438,15 +2425,15 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">value: self.fadingTimeDuration</string>
+						<string key="label">value: self.fadingDuration</string>
 						<reference key="source" ref="222466216"/>
 						<reference key="destination" ref="976324537"/>
 						<object class="NSNibBindingConnector" key="connector">
 							<reference key="NSSource" ref="222466216"/>
 							<reference key="NSDestination" ref="976324537"/>
-							<string key="NSLabel">value: self.fadingTimeDuration</string>
+							<string key="NSLabel">value: self.fadingDuration</string>
 							<string key="NSBinding">value</string>
-							<string key="NSKeyPath">self.fadingTimeDuration</string>
+							<string key="NSKeyPath">self.fadingDuration</string>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>

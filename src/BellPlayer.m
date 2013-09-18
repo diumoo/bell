@@ -6,7 +6,8 @@
 //  Copyright (c) 2013 xiuxiude. All rights reserved.
 //
 
-#import "bellPlayer.h"
+#import "BellPlayer.h"
+#import <libkern/OSAtomic.h>
 
 const NSTimeInterval timerInterval=0.1;
 static BellPlayer *sharedPlayer;
@@ -26,11 +27,13 @@ enum BellFadingState {
   int fadeState;
 }
 
+@property(nonatomic) float realVolume;
+
 @end
 
 @implementation BellPlayer
 
-@synthesize fadingTimeDuration = fadingTimeDuration;
+@synthesize fadingDuration = fadingDuration;
 
 + (instancetype)sharedPlayer
 {
@@ -45,7 +48,7 @@ enum BellFadingState {
   self = [super init];
   if (self) {
     fadeState = BellNoFadingState;
-    fadingTimeDuration = 1.0;
+    fadingDuration = 1.0;
     volume = 1;
   }
   return self;
@@ -64,6 +67,7 @@ enum BellFadingState {
 - (void)play
 {
   if (self.rate > 0.1) return;
+
   if (OSAtomicCompareAndSwapInt(BellNoFadingState,
                                 BellResumeFadingInState,
                                 &fadeState)) {
@@ -81,7 +85,7 @@ enum BellFadingState {
   }
   else {
     [super replaceCurrentItemWithPlayerItem: waitingItem];
-    [super setVolume:volume];
+    self.realVolume = volume;
     [super play];
   }
 }
@@ -101,7 +105,7 @@ enum BellFadingState {
 {
   [self invalidateTimer];
   
-  if (fadingTimeDuration >= 0.1) {
+  if (fadingDuration >= 0.1) {
     NSDictionary *info = @{@"state": @(fadeState)};
     timer = [NSTimer timerWithTimeInterval:timerInterval
                                     target:self
@@ -115,9 +119,9 @@ enum BellFadingState {
   }
   else {
     if (fadeState != BellResumeFadingInState)
-      super.volume = 0.0;
+      self.realVolume = 0.0;
     else
-      super.volume = volume;
+      self.realVolume = volume;
     [self fadingFinishedWithState:fadeState];
   }
 }
@@ -130,31 +134,31 @@ enum BellFadingState {
 - (void)setVolume:(float)v
 {
   volume = v;
-  if (timer == nil) [super setVolume:v];
+  if (timer == nil) self.realVolume = v;
 }
 
 - (void)timerPulse:(NSTimer *)sender
 {
   NSDictionary *info = sender.userInfo;
   int state = [[info objectForKey:@"state"] intValue];
-  float step = volume * timerInterval / fadingTimeDuration;
+  float step = volume * timerInterval / fadingDuration;
   if (state != BellResumeFadingInState) {
-    if (super.volume < step) {
-      super.volume = 0.0;
+    if (self.realVolume < step) {
+      self.realVolume = 0.0;
       [self fadingFinishedWithState:state];
     }
     else {
-      super.volume -= step;
+      self.realVolume -= step;
     }
   }
   else {
-    if (fabsf(super.volume - volume) <= step) {
+    if (fabsf(self.realVolume - volume) <= step) {
       
-      super.volume = volume;
+      self.realVolume = volume;
       [self fadingFinishedWithState:state];
     }
     else {
-      super.volume += step;
+      self.realVolume += step;
     }
   }
 }
@@ -169,11 +173,57 @@ enum BellFadingState {
     case BellNewPlayItemFadingOutState:
       [super pause];
       [super replaceCurrentItemWithPlayerItem:waitingItem];
-      [super setVolume:volume];
+      self.realVolume = volume;
       [super play];
       break;
   }
   OSAtomicCompareAndSwapInt(state, BellNoFadingState, &fadeState);
+}
+
+- (float)realVolume
+{
+#if defined(TARGET_OS_IPHONE) || defined (TARGET_IPHONE_SIMULATOR)
+  AVPlayerItem *currentItem = self.currentItem;
+  NSArray *params = [currentItem audioMix].inputParameters;
+  AVAudioMixInputParameters *parameters = params[0];
+  CMTimeRange range = CMTimeRangeMake(self.currentTime, CMTimeMake(0, 0));
+  float start;
+  float end;
+  BOOL ok = [parameters getVolumeRampForTime:self.currentTime
+                                 startVolume:&start
+                                   endVolume:&end
+                                   timeRange:&range];
+  if (ok)
+    return start;
+  else
+    return end;
+
+#else
+  return super.volume;
+#endif
+}
+
+- (void)setRealVolume:(float) v
+{
+  
+#if defined(TARGET_OS_IPHONE) || defined (TARGET_IPHONE_SIMULATOR)
+  AVPlayerItem *currentItem = self.currentItem;
+  AVAsset *asset = currentItem.asset;
+  NSMutableArray *allAudioParams = [NSMutableArray array];
+  for (AVAssetTrack *track in [asset tracksWithMediaType:AVMediaTypeAudio]) {
+    AVMutableAudioMixInputParameters *audioInputParams = nil;
+    audioInputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
+    [audioInputParams setVolume:v atTime:kCMTimeZero];
+    [audioInputParams setTrackID:[track trackID]];
+    [allAudioParams addObject:audioInputParams];
+  }
+  
+  AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
+  [audioMix setInputParameters:allAudioParams];
+  [currentItem setAudioMix:audioMix];
+#else
+  super.volume = v;
+#endif
 }
 
 @end
