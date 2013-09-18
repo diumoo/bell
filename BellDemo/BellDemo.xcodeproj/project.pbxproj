@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		5207575617E884D100B6C8BF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5207575517E884D100B6C8BF /* AVFoundation.framework */; };
+		5255008517E9C7F600CB8E71 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5255008417E9C7F600CB8E71 /* AVFoundation.framework */; };
+		5255008717E9CBB800CB8E71 /* Application.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5255008617E9CBB800CB8E71 /* Application.xib */; };
+		5255008A17E9CC7B00CB8E71 /* BellDemoController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5255008917E9CC7B00CB8E71 /* BellDemoController.m */; };
+		5255008C17E9EF3500CB8E71 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5255008B17E9EF3500CB8E71 /* CoreMedia.framework */; };
+		5256B54617E9C58B001C79C6 /* BellPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A33D0517E73974007D082F /* BellPlayer.m */; };
+		5256B54817E9C704001C79C6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5256B54717E9C704001C79C6 /* UIKit.framework */; };
 		52A33CC717E73906007D082F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A33CC617E73906007D082F /* Cocoa.framework */; };
 		52A33CD117E73906007D082F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 52A33CCF17E73906007D082F /* InfoPlist.strings */; };
 		52A33CD317E73906007D082F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A33CD217E73906007D082F /* main.m */; };
@@ -25,6 +31,12 @@
 
 /* Begin PBXFileReference section */
 		5207575517E884D100B6C8BF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		5255008417E9C7F600CB8E71 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		5255008617E9CBB800CB8E71 /* Application.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Application.xib; sourceTree = "<group>"; };
+		5255008817E9CC7B00CB8E71 /* BellDemoController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BellDemoController.h; sourceTree = "<group>"; };
+		5255008917E9CC7B00CB8E71 /* BellDemoController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BellDemoController.m; sourceTree = "<group>"; };
+		5255008B17E9EF3500CB8E71 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		5256B54717E9C704001C79C6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		52A33CC317E73906007D082F /* BellDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BellDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52A33CC617E73906007D082F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		52A33CC917E73906007D082F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -66,18 +78,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5255008C17E9EF3500CB8E71 /* CoreMedia.framework in Frameworks */,
+				5255008517E9C7F600CB8E71 /* AVFoundation.framework in Frameworks */,
+				5256B54817E9C704001C79C6 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5256B54917E9C70D001C79C6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5255008B17E9EF3500CB8E71 /* CoreMedia.framework */,
+				5255008417E9C7F600CB8E71 /* AVFoundation.framework */,
+				5256B54717E9C704001C79C6 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		52A33CBA17E73906007D082F = {
 			isa = PBXGroup;
 			children = (
 				52A33CCC17E73906007D082F /* BellDemo */,
 				52A33CEE17E73960007D082F /* BellDemo_iOS */,
-				52A33CC517E73906007D082F /* Frameworks */,
 				52A33CC417E73906007D082F /* Products */,
 				52A33D0317E73974007D082F /* src */,
 			);
@@ -100,6 +124,7 @@
 				52A33CC817E73906007D082F /* Other Frameworks */,
 			);
 			name = Frameworks;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		52A33CC817E73906007D082F /* Other Frameworks */ = {
@@ -119,6 +144,7 @@
 				52A33CD917E73906007D082F /* BellAppDelegate.m */,
 				52A33CDB17E73906007D082F /* MainMenu.xib */,
 				52A33CCD17E73906007D082F /* Supporting Files */,
+				52A33CC517E73906007D082F /* Frameworks */,
 			);
 			path = BellDemo;
 			sourceTree = "<group>";
@@ -140,7 +166,11 @@
 			children = (
 				52A33CF717E73960007D082F /* BellAppDelegate.h */,
 				52A33CF817E73960007D082F /* BellAppDelegate.m */,
+				5255008817E9CC7B00CB8E71 /* BellDemoController.h */,
+				5255008917E9CC7B00CB8E71 /* BellDemoController.m */,
 				52A33CEF17E73960007D082F /* Supporting Files */,
+				5256B54917E9C70D001C79C6 /* Frameworks */,
+				5255008617E9CBB800CB8E71 /* Application.xib */,
 			);
 			path = BellDemo_iOS;
 			sourceTree = "<group>";
@@ -253,6 +283,7 @@
 				52A33CFB17E73960007D082F /* Default.png in Resources */,
 				52A33CFD17E73960007D082F /* Default@2x.png in Resources */,
 				52A33CFF17E73960007D082F /* Default-568h@2x.png in Resources */,
+				5255008717E9CBB800CB8E71 /* Application.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +306,8 @@
 			files = (
 				52A33CF517E73960007D082F /* main.m in Sources */,
 				52A33CF917E73960007D082F /* BellAppDelegate.m in Sources */,
+				5256B54617E9C58B001C79C6 /* BellPlayer.m in Sources */,
+				5255008A17E9CC7B00CB8E71 /* BellDemoController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
