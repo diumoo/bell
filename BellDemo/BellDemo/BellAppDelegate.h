@@ -15,6 +15,7 @@
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSTextField *audioUrlField;
 @property (nonatomic) NSNumber *fadingTimeDuration;
+@property (nonatomic) NSNumber *volume;
 
 - (IBAction)buttonAction:(id)sender;
 

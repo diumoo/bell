@@ -26,6 +26,16 @@
   [BellPlayer sharedPlayer].fadingTimeDuration = [fadingTimeDuration doubleValue];
 }
 
+- (NSNumber *) volume
+{
+  return @([[BellPlayer sharedPlayer]volume]);
+}
+
+- (void) setVolume:(NSNumber *)volume
+{
+  [[BellPlayer sharedPlayer] setVolume:[volume floatValue]];
+}
+
 - (void) buttonAction:(id)sender
 {
   switch ([sender tag]) {
