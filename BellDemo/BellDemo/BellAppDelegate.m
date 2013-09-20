@@ -16,14 +16,24 @@
   
 }
 
-- (NSNumber *) fadingTimeDuration
+- (NSNumber *) fadingDuration
 {
-  return @([BellPlayer sharedPlayer].fadingTimeDuration);
+  return @([BellPlayer sharedPlayer].fadingDuration);
 }
 
-- (void) setFadingTimeDuration:(NSNumber *)fadingTimeDuration
+- (void) setFadingDuration:(NSNumber *)fadingTimeDuration
 {
-  [BellPlayer sharedPlayer].fadingTimeDuration = [fadingTimeDuration doubleValue];
+  [BellPlayer sharedPlayer].fadingDuration = [fadingTimeDuration doubleValue];
+}
+
+- (NSNumber *) volume
+{
+  return @([[BellPlayer sharedPlayer]volume]);
+}
+
+- (void) setVolume:(NSNumber *)volume
+{
+  [[BellPlayer sharedPlayer] setVolume:[volume floatValue]];
 }
 
 - (void) buttonAction:(id)sender

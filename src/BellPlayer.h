@@ -10,7 +10,7 @@
 
 @interface BellPlayer : AVPlayer
 
-@property(nonatomic) NSTimeInterval fadingTimeDuration;
+@property(nonatomic) NSTimeInterval fadingDuration;
 @property(nonatomic) float volume;
 
 + (instancetype)sharedPlayer;
