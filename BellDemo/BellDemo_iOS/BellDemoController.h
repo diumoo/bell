@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BellPlayer.h"
 
-@interface BellDemoController : NSObject
+@interface BellDemoController : NSObject<BellPlayerDelegate>
 
 @property(nonatomic, weak) IBOutlet UITextField *audioUrlField;
 

@@ -7,10 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BellPlayer.h"
 
-@class BellPlayer;
-
-@interface BellAppDelegate : NSObject <NSApplicationDelegate>
+@interface BellAppDelegate : NSObject <NSApplicationDelegate, BellPlayerDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSTextField *audioUrlField;

@@ -35,6 +35,8 @@ enum BellFadingState {
 
 @synthesize fadingDuration = fadingDuration;
 
+
+#pragma mark - Initailize and dealloc functions
 + (instancetype)sharedPlayer
 {
   if (sharedPlayer == nil) {
@@ -50,9 +52,28 @@ enum BellFadingState {
     fadeState = BellNoFadingState;
     fadingDuration = 1.0;
     volume = 1;
+    self.playerItemClass = [AVPlayerItem class];
+    
+    [self addObserver:self
+           forKeyPath:@"rate"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
+    
+    [self addObserver:self
+           forKeyPath:@"currentItem.status"
+              options:NSKeyValueObservingOptionNew
+              context:nil];
   }
   return self;
 }
+
+- (void)dealloc
+{
+  [self removeObserver:self forKeyPath:@"rate"];
+  [self removeObserver:self forKeyPath:@"currentItem.status"];
+}
+
+#pragma mark - Play control functions
 
 - (void)pause
 {
@@ -78,7 +99,12 @@ enum BellFadingState {
 
 - (void)playURL:(NSURL *)url
 {
-  waitingItem = [AVPlayerItem playerItemWithURL:url];
+  
+  waitingItem = [self.playerItemClass playerItemWithURL:url];
+  if (waitingItem == nil) {
+    [self.delegate bellPlayer:self failedToPlayWithPlayItem:nil error:nil];
+    return;
+  }
   if (self.rate > 0.0) {
     fadeState = BellNewPlayItemFadingOutState;
     [self triggerFading];
@@ -89,6 +115,8 @@ enum BellFadingState {
     [super play];
   }
 }
+
+#pragma mark - Private functions to handle volume fading in/out
 
 - (void)invalidateTimer
 {
@@ -182,10 +210,14 @@ enum BellFadingState {
 
 - (float)realVolume
 {
-#if defined(TARGET_OS_IPHONE) || defined (TARGET_IPHONE_SIMULATOR)
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
   AVPlayerItem *currentItem = self.currentItem;
   NSArray *params = [currentItem audioMix].inputParameters;
-  AVAudioMixInputParameters *parameters = params[0];
+  AVAudioMixInputParameters *parameters = nil;
+  
+  if ([params count])parameters = params[0];
+  else return 0.0;
+  
   CMTimeRange range = CMTimeRangeMake(self.currentTime, CMTimeMake(0, 0));
   float start;
   float end;
@@ -206,7 +238,7 @@ enum BellFadingState {
 - (void)setRealVolume:(float) v
 {
   
-#if defined(TARGET_OS_IPHONE) || defined (TARGET_IPHONE_SIMULATOR)
+#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
   AVPlayerItem *currentItem = self.currentItem;
   AVAsset *asset = currentItem.asset;
   NSMutableArray *allAudioParams = [NSMutableArray array];
@@ -224,6 +256,59 @@ enum BellFadingState {
 #else
   super.volume = v;
 #endif
+}
+
+#pragma mark - Register playerItem class
+- (void) setPlayerItemClass:(Class)playerItemClass
+{
+  if ([playerItemClass isSubclassOfClass:[AVPlayerItem class]]) {
+    _playerItemClass = playerItemClass;
+  }
+  else {
+    NSException *exception = [NSException exceptionWithName:@"ClassTypeException"
+                                                     reason:@"PlayerItemClass must be subclass of AVPlayerItem"
+                                                   userInfo:nil];
+    @throw exception;
+  }
+}
+
+#pragma mark - KVO observing
+
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+  if (self.currentItem == nil || self.status == AVPlayerStatusUnknown) return;
+  
+  if ([keyPath isEqualToString:@"rate"]) {
+    float rate = self.rate;
+    
+    Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
+    Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
+    
+    if (duration <= 0.1 || isnan(duration)) return;
+    if (rate <= 0.01) {
+      if (duration - currentTime < 0.5) {
+        [self.delegate bellPlayer:self didEndWithPlayItem:self.currentItem];
+      }
+      else {
+        [self.delegate bellPlayer:self didPauseWithPlayItem:self.currentItem];
+      }
+    }
+    else{
+      [self.delegate bellPlayer:self didPlayWithPlayItem:self.currentItem];
+    }
+  }
+  else if([keyPath  isEqualToString:@"currentItem.status"]) {
+    switch (self.currentItem.status) {
+      case AVPlayerStatusReadyToPlay:
+        [self.delegate bellPlayer:self readyToPlayWithPlayItem:self.currentItem];
+        break;
+      case AVPlayerStatusFailed:
+        [self.delegate bellPlayer:self
+         failedToPlayWithPlayItem:self.currentItem
+         error:self.currentItem.error];
+        break;
+    }
+  }
 }
 
 @end
