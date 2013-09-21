@@ -7,13 +7,12 @@
 //
 
 #import "BellAppDelegate.h"
-#import "BellPlayer.h"
 
 @implementation BellAppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-  
+  [BellPlayer sharedPlayer].delegate = self;
 }
 
 - (NSNumber *) fadingDuration
@@ -54,6 +53,31 @@
     default:
       break;
   }
+}
+
+- (void)bellPlayer:(BellPlayer *)player didPlayWithPlayItem:(AVPlayerItem *)playItem
+{
+  NSLog(@"%@ did play with %@", player, playItem);
+}
+
+- (void)bellPlayer:(BellPlayer *)player didPauseWithPlayItem:(AVPlayerItem *)playItem
+{
+  NSLog(@"%@ did pause with %@", player, playItem);
+}
+
+- (void)bellPlayer:(BellPlayer *)player didEndWithPlayItem:(AVPlayerItem *)playItem
+{
+  NSLog(@"%@ did end with %@", player, playItem);
+}
+
+- (void)bellPlayer:(BellPlayer *)player failedToPlayWithPlayItem:(AVPlayerItem *)playItem error:(NSError *)error
+{
+  NSLog(@"%@ failed to play %@ with error %@", player, playItem, error);
+}
+
+- (void)bellPlayer:(BellPlayer *)player readyToPlayWithPlayItem:(AVPlayerItem *)playItem
+{
+  NSLog(@"%@ ready to play %@", player, playItem);
 }
 
 @end
