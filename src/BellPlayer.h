@@ -20,13 +20,12 @@
 
 @interface BellPlayer : AVPlayer
 
-@property(weak, nonatomic) Class playerItemClass;
-
 // Should be atomic, prevent change fading duration at the same time
 @property(atomic) NSTimeInterval fadingDuration;
 
 
 + (instancetype)sharedPlayer;
 - (void)playURL:(NSURL *) url;
+- (void)playURL:(NSURL *) url userInfo:(NSDictionary *)userInfo;
 
 @end
