@@ -130,7 +130,7 @@ NSTimeInterval const _timerInterval = 0.1;
 {
     [self invalidateTimer];
     
-    if (_fadingDuration >= 0.1) {
+    if (_fadingDuration >= _timerInterval) {
         _timer = [NSTimer timerWithTimeInterval:_timerInterval
                                          target:self
                                        selector:@selector(timerPulse:)
@@ -245,7 +245,7 @@ NSTimeInterval const _timerInterval = 0.1;
         Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
         Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
         
-        if (duration <= 0.1 || isnan(duration))
+        if (duration <= _timerInterval || isnan(duration))
             return;
         
         if (rate <= 0.01) {
