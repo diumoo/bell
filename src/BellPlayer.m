@@ -23,16 +23,16 @@ enum BellFadingState {
     NSTimer *_timer;
     AVPlayerItem *_waitingItem;
     int _fadeState;
+    float _volume;
 }
+
+@property(nonatomic) float realVolume;
 
 extern NSTimeInterval const _timerInterval;
 
 @end
 
 @implementation BellPlayer
-
-@synthesize fadingDuration = _fadingDuration;
-@synthesize targetVolume = _targetVolume;
 
 NSTimeInterval const _timerInterval = 0.1;
 
@@ -51,7 +51,7 @@ NSTimeInterval const _timerInterval = 0.1;
     if (self) {
         _fadeState = BellNoFadingState;
         _fadingDuration = 1.0;
-        _targetVolume = 1;
+        _volume = 1;
         
         self.playerItemClass = [AVPlayerItem class];
         
@@ -108,8 +108,8 @@ NSTimeInterval const _timerInterval = 0.1;
     }
     else {
         [self replaceCurrentItemWithPlayerItem: _waitingItem];
-        self.volume = 0;
-        //[self play];
+        self.realVolume = 0;
+        [self play];
     }
 }
 
@@ -143,9 +143,9 @@ NSTimeInterval const _timerInterval = 0.1;
     }
     else {
         if (_fadeState != BellResumeFadingInState)
-            self.volume = 0.0;
+            self.realVolume = 0.0;
         else
-            self.volume = _targetVolume;
+            self.realVolume = _volume;
         [self fadingFinishedWithState:_fadeState];
     }
 }
@@ -155,24 +155,24 @@ NSTimeInterval const _timerInterval = 0.1;
 {
     NSDictionary *info = sender.userInfo;
     int state = [[info objectForKey:@"state"] intValue];
-    float step = _targetVolume * _timerInterval / _fadingDuration;
+    float step = _volume * _timerInterval / _fadingDuration;
     if (state != BellResumeFadingInState) {
-        if (self.volume < step ) {
-            self.volume = 0.0;
+        if (self.realVolume < step ) {
+            self.realVolume = 0.0;
             [self fadingFinishedWithState:state];
         }
         else {
-            self.volume -= step;
+            self.realVolume -= step;
         }
     }
     else {
-        if (fabsf(self.volume - _targetVolume) <= step ) {
+        if (fabsf(self.realVolume - _volume) <= step ) {
             
-            self.volume = _targetVolume;
+            self.realVolume = _volume;
             [self fadingFinishedWithState:state];
         }
         else {
-            self.volume += step;
+            self.realVolume += step;
         }
     }
 }
@@ -187,12 +187,36 @@ NSTimeInterval const _timerInterval = 0.1;
         case BellNewPlayItemFadingOutState:
             [super pause];
             [self replaceCurrentItemWithPlayerItem:_waitingItem];
-            self.volume = _targetVolume;
+            self.realVolume = _volume;
             [super play];
             break;
     }
     OSAtomicCompareAndSwapInt(state, BellNoFadingState, &_fadeState);
 }
+
+- (float)volume
+{
+    return _volume;
+}
+
+- (void)setVolume:(float)volume
+{
+    _volume = volume;
+    if (_timer==nil) {
+        self.realVolume = _volume;
+    }
+}
+
+- (float)realVolume
+{
+    return super.volume;
+}
+
+- (void)setRealVolume:(float)realVolume
+{
+    super.volume = realVolume;
+}
+
 
 #pragma mark - Register playerItem class
 - (void) setPlayerItemClass:(Class)playerItemClass

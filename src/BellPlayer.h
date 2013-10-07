@@ -25,9 +25,6 @@
 // Should be atomic, prevent change fading duration at the same time
 @property(atomic) NSTimeInterval fadingDuration;
 
-// Same reason as fadingDuration
-@property(atomic) float targetVolume;
-
 
 + (instancetype)sharedPlayer;
 - (void)playURL:(NSURL *) url;
