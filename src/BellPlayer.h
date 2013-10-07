@@ -8,27 +8,17 @@
 
 #import <AVFoundation/AVFoundation.h>
 
-
 @class BellPlayer;
-
-@protocol BellPlayerDelegate <NSObject>
-
-@optional
-- (void)bellPlayer:(BellPlayer *)player didPlayWithPlayItem:(AVPlayerItem *)playItem;
-- (void)bellPlayer:(BellPlayer *)player didPauseWithPlayItem:(AVPlayerItem *)playItem;
-- (void)bellPlayer:(BellPlayer *)player didEndWithPlayItem:(AVPlayerItem *)playItem;
-
-- (void)bellPlayer:(BellPlayer *)player readyToPlayWithPlayItem:(AVPlayerItem *)playItem;
-- (void)bellPlayer:(BellPlayer *)player failedToPlayWithPlayItem:(AVPlayerItem *)playItem error:(NSError *) error;
-
-@end
 
 @interface BellPlayer : AVPlayer
 
 @property(weak, nonatomic) Class playerItemClass;
-@property(weak, nonatomic) id<BellPlayerDelegate> delegate;
-@property(nonatomic) NSTimeInterval fadingDuration;
-@property(nonatomic) float volume;
+
+// Should be atomic, prevent change fading duration at the same time
+@property(atomic) NSTimeInterval fadingDuration;
+
+// Same reason as fadingDuration
+@property(atomic) float targetVolume;
 
 
 + (instancetype)sharedPlayer;

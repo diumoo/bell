@@ -10,74 +10,103 @@
 
 @implementation BellAppDelegate
 
+@synthesize window, audioUrlField, fadingDuration, volume, volumeText;
+@synthesize corePlayer;
+
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-  [BellPlayer sharedPlayer].delegate = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bellPlayerDidPlayWithPlayItem:) name:kPlayerDidPlayItem
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bellPlayerDidEndWithPlayItem:) name:kPlayerDidEndItem
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bellPlayerDidPauseWithPlayItem:) name:kPlayerDidPauseItem
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bellPlayerFailedToPlayWithPlayItem:) name:kPlayerFailedPlayItem
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(bellPlayerReadyToPlayWithPlayItem:) name:kPlayerReadyPlayItem
+                                               object:nil];
+
+    corePlayer = [BellPlayer sharedPlayer];
+    
+    self.volume = [NSNumber numberWithDouble:1.0];
+    
+}
+
+- (void)applicationWillTerminate:(NSNotification *)aNotification
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (NSNumber *) fadingDuration
 {
-  return @([BellPlayer sharedPlayer].fadingDuration);
+    return @(corePlayer.fadingDuration);
 }
 
 - (void) setFadingDuration:(NSNumber *)fadingTimeDuration
 {
-  [BellPlayer sharedPlayer].fadingDuration = [fadingTimeDuration doubleValue];
+    corePlayer.fadingDuration = [fadingTimeDuration doubleValue];
 }
 
 - (NSNumber *) volume
 {
-  return @([[BellPlayer sharedPlayer]volume]);
+    return @(corePlayer.volume);
 }
 
-- (void) setVolume:(NSNumber *)volume
+- (void) setVolume:(NSNumber *)targetVolume
 {
-  [[BellPlayer sharedPlayer] setVolume:[volume floatValue]];
+    corePlayer.targetVolume = [targetVolume doubleValue];
+    volumeText.stringValue = [NSString stringWithFormat:@"%f",corePlayer.targetVolume*100];
+    NSLog(@"player volume = %f",corePlayer.targetVolume);
 }
 
 - (void) buttonAction:(id)sender
 {
-  switch ([sender tag]) {
-    case 0:
-    {
-      NSString *urlString = self.audioUrlField.stringValue;
-      NSURL *url = [NSURL URLWithString:urlString];
-      [[BellPlayer sharedPlayer] playURL:url];
-    }
-      break;
-    case 1:
-      [[BellPlayer sharedPlayer] play];
-      break;
-    case 2 :
-      [[BellPlayer sharedPlayer] pause];
-    default:
-      break;
+    switch ([sender tag]) {
+        case 0:
+            [corePlayer playURL:[NSURL URLWithString:self.audioUrlField.stringValue]];
+            break;
+        case 1:
+            [corePlayer play];
+            break;
+        case 2 :
+            [corePlayer pause];
+        default:
+            break;
   }
 }
 
-- (void)bellPlayer:(BellPlayer *)player didPlayWithPlayItem:(AVPlayerItem *)playItem
+- (void)bellPlayerDidPlayWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"%@ did play with %@", player, playItem);
+    NSLog(@"Did play with %@", aNotification.userInfo);
 }
 
-- (void)bellPlayer:(BellPlayer *)player didPauseWithPlayItem:(AVPlayerItem *)playItem
+- (void)bellPlayerDidPauseWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"%@ did pause with %@", player, playItem);
+    NSLog(@"Did pause with %@", aNotification.userInfo);
 }
 
-- (void)bellPlayer:(BellPlayer *)player didEndWithPlayItem:(AVPlayerItem *)playItem
+- (void)bellPlayerDidEndWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"%@ did end with %@", player, playItem);
+    NSLog(@"Did end with %@", aNotification.userInfo);
 }
 
-- (void)bellPlayer:(BellPlayer *)player failedToPlayWithPlayItem:(AVPlayerItem *)playItem error:(NSError *)error
+- (void)bellPlayerFailedToPlayWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"%@ failed to play %@ with error %@", player, playItem, error);
+    NSLog(@"Failed to play with error %@", aNotification.userInfo);
 }
 
-- (void)bellPlayer:(BellPlayer *)player readyToPlayWithPlayItem:(AVPlayerItem *)playItem
+- (void)bellPlayerReadyToPlayWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"%@ ready to play %@", player, playItem);
+  NSLog(@"Ready to play %@", aNotification);
 }
 
 @end
