@@ -3,5 +3,13 @@
 //
 
 #ifdef __OBJC__
-  #import <Cocoa/Cocoa.h>
+    #import <Cocoa/Cocoa.h>
+
+    #define kPlayerDidPlayItem @"player_played"
+    #define kPlayerDidPauseItem @"player_paused"
+    #define kPlayerDidEndItem @"player_end"
+
+    #define kPlayerReadyPlayItem @"player_ready"
+    #define kPlayerFailedPlayItem @"player_failed"
+
 #endif
