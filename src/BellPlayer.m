@@ -54,12 +54,12 @@ NSTimeInterval const _timerInterval = 0.1;
         _targetVolume = 1;
         
         self.playerItemClass = [AVPlayerItem class];
-    
+        
         [self addObserver:self
                forKeyPath:@"rate"
                   options:NSKeyValueObservingOptionNew
                   context:nil];
-    
+        
         [self addObserver:self
                forKeyPath:@"currentItem.status"
                   options:NSKeyValueObservingOptionNew
@@ -70,8 +70,8 @@ NSTimeInterval const _timerInterval = 0.1;
 
 - (void)dealloc
 {
-  [self removeObserver:self forKeyPath:@"rate"];
-  [self removeObserver:self forKeyPath:@"currentItem.status"];
+    [self removeObserver:self forKeyPath:@"rate"];
+    [self removeObserver:self forKeyPath:@"currentItem.status"];
 }
 
 #pragma mark - Play control functions
@@ -92,7 +92,7 @@ NSTimeInterval const _timerInterval = 0.1;
                                                       &_fadeState))) {
         [super play];
         [self triggerFading];
-  }
+    }
 }
 
 - (void)playURL:(NSURL *)url
@@ -123,13 +123,13 @@ NSTimeInterval const _timerInterval = 0.1;
                              kCFRunLoopCommonModes);
         [_timer invalidate];
         _timer = nil;
-  }
+    }
 }
 
 - (void)triggerFading
 {
     [self invalidateTimer];
-  
+    
     if (_fadingDuration >= 0.1) {
         _timer = [NSTimer timerWithTimeInterval:_timerInterval
                                          target:self
@@ -163,18 +163,16 @@ NSTimeInterval const _timerInterval = 0.1;
         }
         else {
             self.volume -= step;
-            NSLog(@"volume = %f, fading duration = %f",self.volume, _fadingDuration);
         }
     }
     else {
         if (fabsf(self.volume - _targetVolume) <= step ) {
-      
+            
             self.volume = _targetVolume;
             [self fadingFinishedWithState:state];
         }
         else {
             self.volume += step;
-            NSLog(@"volume = %f, fading duration = %f",self.volume, _fadingDuration);
         }
     }
 }
@@ -216,13 +214,13 @@ NSTimeInterval const _timerInterval = 0.1;
 {
     if (self.currentItem == nil || self.status == AVPlayerStatusUnknown)
         return;
-  
+    
     if ([keyPath isEqualToString:@"rate"]) {
         float rate = self.rate;
-    
+        
         Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
         Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
-    
+        
         if (duration <= 0.1 || isnan(duration))
             return;
         

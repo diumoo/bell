@@ -22,19 +22,19 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(bellPlayerDidEndWithPlayItem:) name:kPlayerDidEndItem
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(bellPlayerDidPauseWithPlayItem:) name:kPlayerDidPauseItem
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(bellPlayerFailedToPlayWithPlayItem:) name:kPlayerFailedPlayItem
                                                object:nil];
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(bellPlayerReadyToPlayWithPlayItem:) name:kPlayerReadyPlayItem
                                                object:nil];
-
+    
     corePlayer = [BellPlayer sharedPlayer];
     
     self.volume = [NSNumber numberWithDouble:1.0];
@@ -81,7 +81,7 @@
             [corePlayer pause];
         default:
             break;
-  }
+    }
 }
 
 - (void)bellPlayerDidPlayWithPlayItem:(NSNotification *)aNotification
@@ -106,7 +106,7 @@
 
 - (void)bellPlayerReadyToPlayWithPlayItem:(NSNotification *)aNotification
 {
-  NSLog(@"Ready to play %@", aNotification);
+    NSLog(@"Ready to play %@", aNotification);
 }
 
 @end

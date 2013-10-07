@@ -8,6 +8,14 @@
 
 #import <AVFoundation/AVFoundation.h>
 
+
+#define kPlayerDidPlayItem @"player_played"
+#define kPlayerDidPauseItem @"player_paused"
+#define kPlayerDidEndItem @"player_end"
+
+#define kPlayerReadyPlayItem @"player_ready"
+#define kPlayerFailedPlayItem @"player_failed"
+
 @class BellPlayer;
 
 @interface BellPlayer : AVPlayer
