@@ -63,9 +63,9 @@
 
 - (void) setVolume:(NSNumber *)targetVolume
 {
-    corePlayer.targetVolume = [targetVolume doubleValue];
-    volumeText.stringValue = [NSString stringWithFormat:@"%f",corePlayer.targetVolume*100];
-    NSLog(@"player volume = %f",corePlayer.targetVolume);
+    corePlayer.volume = [targetVolume doubleValue];
+    volumeText.stringValue = [NSString stringWithFormat:@"%f",corePlayer.volume*100];
+    NSLog(@"player volume = %f",corePlayer.volume);
 }
 
 - (void) buttonAction:(id)sender
