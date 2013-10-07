@@ -9,12 +9,14 @@
 #import <Cocoa/Cocoa.h>
 #import "BellPlayer.h"
 
-@interface BellAppDelegate : NSObject <NSApplicationDelegate, BellPlayerDelegate>
+@interface BellAppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet NSTextField *audioUrlField;
-@property (nonatomic) NSNumber *fadingDuration;
-@property (nonatomic) NSNumber *volume;
+@property (assign) IBOutlet NSTextField *volumeText;
+@property (atomic) NSNumber *fadingDuration;
+@property (atomic) NSNumber *volume;
+@property (strong) BellPlayer *corePlayer;
 
 - (IBAction)buttonAction:(id)sender;
 

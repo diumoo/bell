@@ -9,62 +9,63 @@
 #import "BellPlayer.h"
 #import <libkern/OSAtomic.h>
 
-const NSTimeInterval timerInterval=0.1;
 static BellPlayer *sharedPlayer;
 
 enum BellFadingState {
-  BellNoFadingState = 0,
-  BellNewPlayItemFadingOutState = 1,
-  BellPauseFadingOutState = 2,
-  BellResumeFadingInState = 3,
-  };
+    BellNoFadingState = 0,
+    BellNewPlayItemFadingOutState = 1,
+    BellPauseFadingOutState = 2,
+    BellResumeFadingInState = 3,
+};
 
 @interface BellPlayer()
 {
-  NSTimer *timer;
-  AVPlayerItem *waitingItem;
-  float volume;
-  int fadeState;
+    NSTimer *_timer;
+    AVPlayerItem *_waitingItem;
+    int _fadeState;
 }
 
-@property(nonatomic) float realVolume;
+extern NSTimeInterval const _timerInterval;
 
 @end
 
 @implementation BellPlayer
 
-@synthesize fadingDuration = fadingDuration;
+@synthesize fadingDuration = _fadingDuration;
+@synthesize targetVolume = _targetVolume;
 
+NSTimeInterval const _timerInterval = 0.1;
 
 #pragma mark - Initailize and dealloc functions
 + (instancetype)sharedPlayer
 {
-  if (sharedPlayer == nil) {
-    sharedPlayer = [[BellPlayer alloc] init];
-  }
-  return sharedPlayer;
+    if (sharedPlayer == nil) {
+        sharedPlayer = [[BellPlayer alloc] init];
+    }
+    return sharedPlayer;
 }
 
 - (id)init
 {
-  self = [super init];
-  if (self) {
-    fadeState = BellNoFadingState;
-    fadingDuration = 1.0;
-    volume = 1;
-    self.playerItemClass = [AVPlayerItem class];
+    self = [super init];
+    if (self) {
+        _fadeState = BellNoFadingState;
+        _fadingDuration = 1.0;
+        _targetVolume = 1;
+        
+        self.playerItemClass = [AVPlayerItem class];
     
-    [self addObserver:self
-           forKeyPath:@"rate"
-              options:NSKeyValueObservingOptionNew
-              context:nil];
+        [self addObserver:self
+               forKeyPath:@"rate"
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
     
-    [self addObserver:self
-           forKeyPath:@"currentItem.status"
-              options:NSKeyValueObservingOptionNew
-              context:nil];
-  }
-  return self;
+        [self addObserver:self
+               forKeyPath:@"currentItem.status"
+                  options:NSKeyValueObservingOptionNew
+                  context:nil];
+    }
+    return self;
 }
 
 - (void)dealloc
@@ -77,238 +78,176 @@ enum BellFadingState {
 
 - (void)pause
 {
-  if (self.rate == 0.0) return;
-  if (OSAtomicCompareAndSwapInt(BellNoFadingState,
-                                 BellPauseFadingOutState,
-                                 &fadeState)) {
-    [self triggerFading];
-  }
+    if (self.rate != 0.0 && (OSAtomicCompareAndSwapInt(BellNoFadingState,
+                                                       BellPauseFadingOutState,
+                                                       &_fadeState))) {
+        [self triggerFading];
+    }
 }
 
 - (void)play
 {
-  if (self.rate > 0.1) return;
-
-  if (OSAtomicCompareAndSwapInt(BellNoFadingState,
-                                BellResumeFadingInState,
-                                &fadeState)) {
-    [super play];
-    [self triggerFading];
+    if (self.rate < 0.1 && (OSAtomicCompareAndSwapInt(BellNoFadingState,
+                                                      BellResumeFadingInState,
+                                                      &_fadeState))) {
+        [super play];
+        [self triggerFading];
   }
 }
 
 - (void)playURL:(NSURL *)url
 {
-  
-  waitingItem = [self.playerItemClass playerItemWithURL:url];
-  if (waitingItem == nil) {
-    [self.delegate bellPlayer:self failedToPlayWithPlayItem:nil error:nil];
-    return;
-  }
-  if (self.rate > 0.0) {
-    fadeState = BellNewPlayItemFadingOutState;
-    [self triggerFading];
-  }
-  else {
-    [super replaceCurrentItemWithPlayerItem: waitingItem];
-    self.realVolume = volume;
-    [super play];
-  }
+    _waitingItem = [self.playerItemClass playerItemWithURL:url];
+    if (_waitingItem == nil) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:nil];
+        return;
+    }
+    if (self.rate > 0.0) {
+        _fadeState = BellNewPlayItemFadingOutState;
+        [self triggerFading];
+    }
+    else {
+        [self replaceCurrentItemWithPlayerItem: _waitingItem];
+        self.volume = 0;
+        //[self play];
+    }
 }
 
 #pragma mark - Private functions to handle volume fading in/out
 
 - (void)invalidateTimer
 {
-  if (timer) {
-    CFRunLoopRemoveTimer(CFRunLoopGetMain(),
-                         (__bridge CFRunLoopTimerRef)timer,
-                         kCFRunLoopCommonModes);
-    [timer invalidate];
-    timer = nil;
+    if (_timer) {
+        CFRunLoopRemoveTimer(CFRunLoopGetMain(),
+                             (__bridge CFRunLoopTimerRef)_timer,
+                             kCFRunLoopCommonModes);
+        [_timer invalidate];
+        _timer = nil;
   }
 }
 
 - (void)triggerFading
 {
-  [self invalidateTimer];
+    [self invalidateTimer];
   
-  if (fadingDuration >= 0.1) {
-    NSDictionary *info = @{@"state": @(fadeState)};
-    timer = [NSTimer timerWithTimeInterval:timerInterval
-                                    target:self
-                                  selector:@selector(timerPulse:)
-                                  userInfo:info
-                                   repeats:YES];
-    CFRunLoopAddTimer(CFRunLoopGetMain(),
-                      (__bridge CFRunLoopTimerRef)timer,
-                      kCFRunLoopCommonModes);
-    [timer fire];
-  }
-  else {
-    if (fadeState != BellResumeFadingInState)
-      self.realVolume = 0.0;
-    else
-      self.realVolume = volume;
-    [self fadingFinishedWithState:fadeState];
-  }
+    if (_fadingDuration >= 0.1) {
+        _timer = [NSTimer timerWithTimeInterval:_timerInterval
+                                         target:self
+                                       selector:@selector(timerPulse:)
+                                       userInfo:@{@"state": @(_fadeState)}
+                                        repeats:YES];
+        CFRunLoopAddTimer(CFRunLoopGetMain(),
+                          (__bridge CFRunLoopTimerRef)_timer,
+                          kCFRunLoopCommonModes);
+        [_timer fire];
+    }
+    else {
+        if (_fadeState != BellResumeFadingInState)
+            self.volume = 0.0;
+        else
+            self.volume = _targetVolume;
+        [self fadingFinishedWithState:_fadeState];
+    }
 }
 
-- (float)volume
-{
-  return volume;
-}
-
-- (void)setVolume:(float)v
-{
-  volume = v;
-  if (timer == nil) self.realVolume = v;
-}
 
 - (void)timerPulse:(NSTimer *)sender
 {
-  NSDictionary *info = sender.userInfo;
-  int state = [[info objectForKey:@"state"] intValue];
-  float step = volume * timerInterval / fadingDuration;
-  if (state != BellResumeFadingInState) {
-    if (self.realVolume < step) {
-      self.realVolume = 0.0;
-      [self fadingFinishedWithState:state];
+    NSDictionary *info = sender.userInfo;
+    int state = [[info objectForKey:@"state"] intValue];
+    float step = _targetVolume * _timerInterval / _fadingDuration;
+    if (state != BellResumeFadingInState) {
+        if (self.volume < step ) {
+            self.volume = 0.0;
+            [self fadingFinishedWithState:state];
+        }
+        else {
+            self.volume -= step;
+            NSLog(@"volume = %f, fading duration = %f",self.volume, _fadingDuration);
+        }
     }
     else {
-      self.realVolume -= step;
-    }
-  }
-  else {
-    if (fabsf(self.realVolume - volume) <= step) {
+        if (fabsf(self.volume - _targetVolume) <= step ) {
       
-      self.realVolume = volume;
-      [self fadingFinishedWithState:state];
+            self.volume = _targetVolume;
+            [self fadingFinishedWithState:state];
+        }
+        else {
+            self.volume += step;
+            NSLog(@"volume = %f, fading duration = %f",self.volume, _fadingDuration);
+        }
     }
-    else {
-      self.realVolume += step;
-    }
-  }
 }
 
 - (void)fadingFinishedWithState:(int) state
 {
-  [self invalidateTimer];
-  switch (state) {
-    case BellPauseFadingOutState:
-      [super pause];
-      break;
-    case BellNewPlayItemFadingOutState:
-      [super pause];
-      [super replaceCurrentItemWithPlayerItem:waitingItem];
-      self.realVolume = volume;
-      [super play];
-      break;
-  }
-  OSAtomicCompareAndSwapInt(state, BellNoFadingState, &fadeState);
-}
-
-- (float)realVolume
-{
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-  AVPlayerItem *currentItem = self.currentItem;
-  NSArray *params = [currentItem audioMix].inputParameters;
-  AVAudioMixInputParameters *parameters = nil;
-  
-  if ([params count])parameters = params[0];
-  else return 0.0;
-  
-  CMTimeRange range = CMTimeRangeMake(self.currentTime, CMTimeMake(0, 0));
-  float start;
-  float end;
-  BOOL ok = [parameters getVolumeRampForTime:self.currentTime
-                                 startVolume:&start
-                                   endVolume:&end
-                                   timeRange:&range];
-  if (ok)
-    return start;
-  else
-    return end;
-
-#else
-  return super.volume;
-#endif
-}
-
-- (void)setRealVolume:(float) v
-{
-  
-#if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
-  AVPlayerItem *currentItem = self.currentItem;
-  AVAsset *asset = currentItem.asset;
-  NSMutableArray *allAudioParams = [NSMutableArray array];
-  for (AVAssetTrack *track in [asset tracksWithMediaType:AVMediaTypeAudio]) {
-    AVMutableAudioMixInputParameters *audioInputParams = nil;
-    audioInputParams = [AVMutableAudioMixInputParameters audioMixInputParameters];
-    [audioInputParams setVolume:v atTime:kCMTimeZero];
-    [audioInputParams setTrackID:[track trackID]];
-    [allAudioParams addObject:audioInputParams];
-  }
-  
-  AVMutableAudioMix *audioMix = [AVMutableAudioMix audioMix];
-  [audioMix setInputParameters:allAudioParams];
-  [currentItem setAudioMix:audioMix];
-#else
-  super.volume = v;
-#endif
+    [self invalidateTimer];
+    switch (state) {
+        case BellPauseFadingOutState:
+            [super pause];
+            break;
+        case BellNewPlayItemFadingOutState:
+            [super pause];
+            [self replaceCurrentItemWithPlayerItem:_waitingItem];
+            self.volume = _targetVolume;
+            [super play];
+            break;
+    }
+    OSAtomicCompareAndSwapInt(state, BellNoFadingState, &_fadeState);
 }
 
 #pragma mark - Register playerItem class
 - (void) setPlayerItemClass:(Class)playerItemClass
 {
-  if ([playerItemClass isSubclassOfClass:[AVPlayerItem class]]) {
-    _playerItemClass = playerItemClass;
-  }
-  else {
-    NSException *exception = [NSException exceptionWithName:@"ClassTypeException"
-                                                     reason:@"PlayerItemClass must be subclass of AVPlayerItem"
-                                                   userInfo:nil];
-    @throw exception;
-  }
+    if ([playerItemClass isSubclassOfClass:[AVPlayerItem class]]) {
+        _playerItemClass = playerItemClass;
+    }
+    else {
+        NSException *exception = [NSException exceptionWithName:@"ClassTypeException"
+                                                         reason:@"PlayerItemClass must be subclass of AVPlayerItem"
+                                                       userInfo:nil];
+        @throw exception;
+    }
 }
 
 #pragma mark - KVO observing
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-  if (self.currentItem == nil || self.status == AVPlayerStatusUnknown) return;
+    if (self.currentItem == nil || self.status == AVPlayerStatusUnknown)
+        return;
   
-  if ([keyPath isEqualToString:@"rate"]) {
-    float rate = self.rate;
+    if ([keyPath isEqualToString:@"rate"]) {
+        float rate = self.rate;
     
-    Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
-    Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
+        Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
+        Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
     
-    if (duration <= 0.1 || isnan(duration)) return;
-    if (rate <= 0.01) {
-      if (duration - currentTime < 0.5) {
-        [self.delegate bellPlayer:self didEndWithPlayItem:self.currentItem];
-      }
-      else {
-        [self.delegate bellPlayer:self didPauseWithPlayItem:self.currentItem];
-      }
+        if (duration <= 0.1 || isnan(duration))
+            return;
+        
+        if (rate <= 0.01) {
+            if (duration - currentTime < 0.5) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:self.currentItem];
+            }
+            else {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPauseItem object:self.currentItem];
+            }
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:self.currentItem];
+        }
     }
-    else{
-      [self.delegate bellPlayer:self didPlayWithPlayItem:self.currentItem];
+    else if([keyPath isEqualToString:@"currentItem.status"]) {
+        switch (self.currentItem.status) {
+            case AVPlayerStatusReadyToPlay:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerReadyPlayItem object:self.currentItem];
+                break;
+            case AVPlayerStatusFailed:
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:self.currentItem.error];
+                break;
+        }
     }
-  }
-  else if([keyPath  isEqualToString:@"currentItem.status"]) {
-    switch (self.currentItem.status) {
-      case AVPlayerStatusReadyToPlay:
-        [self.delegate bellPlayer:self readyToPlayWithPlayItem:self.currentItem];
-        break;
-      case AVPlayerStatusFailed:
-        [self.delegate bellPlayer:self
-         failedToPlayWithPlayItem:self.currentItem
-         error:self.currentItem.error];
-        break;
-    }
-  }
 }
 
 @end

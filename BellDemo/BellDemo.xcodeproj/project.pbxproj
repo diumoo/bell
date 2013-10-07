@@ -31,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1742D99818024B04009B7217 /* BellDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = BellDemo.entitlements; sourceTree = "<group>"; };
 		5207575517E884D100B6C8BF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		522640D717EC0D90003CF21F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		522640D917EC0D9A003CF21F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
@@ -144,6 +145,7 @@
 		52A33CCC17E73906007D082F /* BellDemo */ = {
 			isa = PBXGroup;
 			children = (
+				1742D99818024B04009B7217 /* BellDemo.entitlements */,
 				52A33CD817E73906007D082F /* BellAppDelegate.h */,
 				52A33CD917E73906007D082F /* BellAppDelegate.m */,
 				52A33CDB17E73906007D082F /* MainMenu.xib */,
@@ -249,6 +251,15 @@
 				CLASSPREFIX = Bell;
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = diumoo;
+				TargetAttributes = {
+					52A33CC217E73906007D082F = {
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 52A33CBE17E73906007D082F /* Build configuration list for PBXProject "BellDemo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -415,6 +426,8 @@
 		52A33CE117E73906007D082F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BellDemo/BellDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BellDemo/BellDemo-Prefix.pch";
@@ -427,6 +440,8 @@
 		52A33CE217E73906007D082F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = BellDemo/BellDemo.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BellDemo/BellDemo-Prefix.pch";
