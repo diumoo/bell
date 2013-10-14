@@ -9,6 +9,32 @@
 #import "BellPlayer.h"
 #import <libkern/OSAtomic.h>
 
+#pragma mark - BellPlayerItem
+
+@interface BellPlayerItem : AVPlayerItem
+@property(nonatomic, readonly) NSDictionary *userInfo;
++ (instancetype)playerItemWithURL:(NSURL *)url userInfo:(NSDictionary *)userInfo;
+@end
+
+@implementation BellPlayerItem
+- (id) initWithURL:(NSURL *)URL userInfo:(NSDictionary *)userInfo
+{
+    self = [super initWithURL:URL];
+    if (self) {
+        _userInfo = userInfo;
+    }
+    return self;
+}
+
++ (instancetype)playerItemWithURL:(NSURL *)url userInfo:(NSDictionary *)userInfo
+{
+    return [[BellPlayerItem alloc] initWithURL:url userInfo:userInfo];
+}
+
+@end
+
+#pragma mark - BellPlayer
+
 static BellPlayer *sharedPlayer;
 
 enum BellFadingState {
@@ -21,7 +47,7 @@ enum BellFadingState {
 @interface BellPlayer()
 {
     NSTimer *_timer;
-    AVPlayerItem *_waitingItem;
+    BellPlayerItem *_waitingItem;
     int _fadeState;
     float _volume;
 }
@@ -52,8 +78,6 @@ NSTimeInterval const _timerInterval = 0.1;
         _fadeState = BellNoFadingState;
         _fadingDuration = 1.0;
         _volume = 1;
-        
-        self.playerItemClass = [AVPlayerItem class];
         
         [self addObserver:self
                forKeyPath:@"rate"
@@ -97,7 +121,12 @@ NSTimeInterval const _timerInterval = 0.1;
 
 - (void)playURL:(NSURL *)url
 {
-    _waitingItem = [self.playerItemClass playerItemWithURL:url];
+    [self playURL:url userInfo:nil];
+}
+
+- (void)playURL:(NSURL *)url userInfo:(NSDictionary *)userInfo
+{
+    _waitingItem = [BellPlayerItem playerItemWithURL:url userInfo:userInfo];
     if (_waitingItem == nil) {
         [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:nil];
         return;
@@ -218,26 +247,17 @@ NSTimeInterval const _timerInterval = 0.1;
 }
 
 
-#pragma mark - Register playerItem class
-- (void) setPlayerItemClass:(Class)playerItemClass
-{
-    if ([playerItemClass isSubclassOfClass:[AVPlayerItem class]]) {
-        _playerItemClass = playerItemClass;
-    }
-    else {
-        NSException *exception = [NSException exceptionWithName:@"ClassTypeException"
-                                                         reason:@"PlayerItemClass must be subclass of AVPlayerItem"
-                                                       userInfo:nil];
-        @throw exception;
-    }
-}
-
 #pragma mark - KVO observing
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (self.currentItem == nil || self.status == AVPlayerStatusUnknown)
         return;
+    
+    NSDictionary *userInfo = nil;
+    if ([self.currentItem respondsToSelector:@selector(userInfo)]) {
+        userInfo = [self.currentItem performSelector:@selector(userInfo)];
+    }
     
     if ([keyPath isEqualToString:@"rate"]) {
         float rate = self.rate;
@@ -248,22 +268,24 @@ NSTimeInterval const _timerInterval = 0.1;
         if (duration <= _timerInterval || isnan(duration))
             return;
         
+        
         if (rate <= 0.01) {
+            
             if (duration - currentTime < 0.5) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:self.currentItem];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:userInfo];
             }
             else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPauseItem object:self.currentItem];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPauseItem object:userInfo];
             }
         }
         else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:self.currentItem];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:userInfo];
         }
     }
     else if([keyPath isEqualToString:@"currentItem.status"]) {
         switch (self.currentItem.status) {
             case AVPlayerStatusReadyToPlay:
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerReadyPlayItem object:self.currentItem];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerReadyPlayItem object:userInfo];
                 break;
             case AVPlayerStatusFailed:
                 [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:self.currentItem.error];
@@ -273,3 +295,4 @@ NSTimeInterval const _timerInterval = 0.1;
 }
 
 @end
+
