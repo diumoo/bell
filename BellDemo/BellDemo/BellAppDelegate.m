@@ -11,7 +11,6 @@
 @implementation BellAppDelegate
 
 @synthesize window, audioUrlField, fadingDuration, volume, volumeText;
-@synthesize corePlayer;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
@@ -35,7 +34,6 @@
                                              selector:@selector(bellPlayerReadyToPlayWithPlayItem:) name:kPlayerReadyPlayItem
                                                object:nil];
     
-    corePlayer = [BellPlayer sharedPlayer];
     
     self.volume = [NSNumber numberWithDouble:1.0];
     
@@ -48,37 +46,39 @@
 
 - (NSNumber *) fadingDuration
 {
-    return @(corePlayer.fadingDuration);
+    return @([BellPlayer sharedPlayer].fadingDuration);
 }
 
 - (void) setFadingDuration:(NSNumber *)fadingTimeDuration
 {
-    corePlayer.fadingDuration = [fadingTimeDuration doubleValue];
+    [BellPlayer sharedPlayer].fadingDuration = [fadingTimeDuration doubleValue];
 }
 
 - (NSNumber *) volume
 {
-    return @(corePlayer.volume);
+    return @([BellPlayer sharedPlayer].bellVolume);
 }
 
 - (void) setVolume:(NSNumber *)targetVolume
 {
-    corePlayer.volume = [targetVolume doubleValue];
-    volumeText.stringValue = [NSString stringWithFormat:@"%f",corePlayer.volume*100];
-    NSLog(@"player volume = %f",corePlayer.volume);
+    BellPlayer *player = [BellPlayer sharedPlayer];
+    player.bellVolume = [targetVolume doubleValue];
+    volumeText.stringValue = [NSString stringWithFormat:@"%f",player.bellVolume*100];
+    NSLog(@"player volume = %f",player.bellVolume);
 }
 
 - (void) buttonAction:(id)sender
 {
+    BellPlayer *player = [BellPlayer sharedPlayer];
     switch ([sender tag]) {
         case 0:
-            [corePlayer playURL:[NSURL URLWithString:self.audioUrlField.stringValue]];
+            [player playURL:[NSURL URLWithString:self.audioUrlField.stringValue]];
             break;
         case 1:
-            [corePlayer play];
+            [player play];
             break;
         case 2 :
-            [corePlayer pause];
+            [player pause];
         default:
             break;
     }
