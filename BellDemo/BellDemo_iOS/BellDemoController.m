@@ -39,7 +39,7 @@
 {
     BellPlayer *player = [BellPlayer sharedPlayer];
     self.durationLabel.text = [NSString stringWithFormat:@"%.1f", player.fadingDuration];
-    self.volumeLabel.text = [NSString stringWithFormat:@"%.1f", player.volume];
+    self.volumeLabel.text = [NSString stringWithFormat:@"%.1f", player.bellVolume];
 }
 
 - (void) playAction:(id)sender
@@ -59,7 +59,7 @@
             [[BellPlayer sharedPlayer] pause];
             break;
         case 3:
-            [BellPlayer sharedPlayer].volume = [(UISlider *)sender value];
+            [BellPlayer sharedPlayer].bellVolume = [(UISlider *)sender value];
             [self updateValueDisplay];
             break;
         case 4:
