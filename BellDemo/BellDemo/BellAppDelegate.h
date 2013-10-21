@@ -16,7 +16,6 @@
 @property (assign) IBOutlet NSTextField *volumeText;
 @property (atomic) NSNumber *fadingDuration;
 @property (atomic) NSNumber *volume;
-@property (strong) BellPlayer *corePlayer;
 
 - (IBAction)buttonAction:(id)sender;
 

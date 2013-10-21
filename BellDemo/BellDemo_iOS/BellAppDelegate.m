@@ -45,11 +45,11 @@
 
 - (NSNumber *)volume
 {
-    return @([[BellPlayer sharedPlayer] volume]);
+    return @([[BellPlayer sharedPlayer] bellVolume]);
 }
 
 - (void) setVolume:(NSNumber *)volume
 {
-    [[BellPlayer sharedPlayer] setVolume:[volume floatValue]];
+    [[BellPlayer sharedPlayer] setBellVolume:[volume floatValue]];
 }
 @end
