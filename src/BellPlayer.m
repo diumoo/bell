@@ -250,12 +250,11 @@ NSTimeInterval const _timerInterval = 0.1;
         Float64 currentTime = CMTimeGetSeconds(self.currentItem.currentTime);
         Float64 duration = CMTimeGetSeconds(self.currentItem.duration);
         
-        if (duration <= _timerInterval || isnan(duration))
-            return;
-        
-        
         if (rate <= 0.01) {
             
+            if (duration <= _timerInterval || isnan(duration))
+                return;
+
             if (duration - currentTime < 0.5) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:userInfo];
             }
@@ -264,6 +263,7 @@ NSTimeInterval const _timerInterval = 0.1;
             }
         }
         else{
+            if (isnan(duration)) return;
             [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:userInfo];
         }
     }
