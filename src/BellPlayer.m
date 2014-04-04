@@ -263,7 +263,6 @@ NSTimeInterval const _timerInterval = 0.1;
             }
         }
         else{
-            if (isnan(duration)) return;
             [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:userInfo];
         }
     }
