@@ -127,7 +127,7 @@ NSTimeInterval const _timerInterval = 0.1;
 {
     _waitingItem = playeritem;
     if (_waitingItem == nil) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:nil];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:self];
         return;
     }
     if (self.rate > 0.0) {
@@ -256,20 +256,20 @@ NSTimeInterval const _timerInterval = 0.1;
                 return;
 
             if (duration - currentTime < 0.5) {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidEndItem object:self];
             }
             else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPauseItem object:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPauseItem object:self];
             }
         }
         else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:userInfo];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerDidPlayItem object:self];
         }
     }
     else if([keyPath isEqualToString:@"currentItem.status"]) {
         switch (self.currentItem.status) {
             case AVPlayerStatusReadyToPlay:
-                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerReadyPlayItem object:userInfo];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerReadyPlayItem object:self];
                 break;
             case AVPlayerStatusFailed:
                 [[NSNotificationCenter defaultCenter] postNotificationName:kPlayerFailedPlayItem object:self.currentItem.error];
